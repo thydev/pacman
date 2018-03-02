@@ -51,42 +51,41 @@ var world = [];
         document.onkeydown = function(e) {
             if (e.keyCode === 37) { //left
                 //Can not get through wall
+                rotateNinja("scaleX(1)");
                 if (world[ninjaman.y][ninjaman.x - 1] != 1) {
                     ninjaman.x--;
-                    rotateNinja("scaleX(1)");
-                    
                 }
             } else if (e.keyCode === 39) { //right
+                rotateNinja("rotate(180deg)");
+                rotateNinja("scaleX(-1)");
                 if (world[ninjaman.y][ninjaman.x + 1] != 1) {
                     ninjaman.x++;
-                    rotateNinja("rotate(180deg)");
-                    rotateNinja("scaleX(-1)");
                 }
             } else if (e.keyCode === 40) { //down
+                rotateNinja("rotate(-90deg)");
                 if (world[ninjaman.y + 1][ninjaman.x] != 1) {
                     ninjaman.y++;
-                    rotateNinja("rotate(-90deg)");
                 }
             } else if (e.keyCode === 38) { //up
+                rotateNinja("rotate(90deg)");
                 if (world[ninjaman.y - 1][ninjaman.x] != 1) {
                     ninjaman.y--;
-                    rotateNinja("rotate(90deg)");
                 }
             } else if (e.keyCode === 32) { //Space
                 if (ninjaman.y - 1 > 0) { //Avoid to destroy the top wall
                     if (ninjaman.x-1 > 0) world[ninjaman.y-1][ninjaman.x-1] = 0; //Avoid to destroy the left wall
                     world[ninjaman.y-1][ninjaman.x] = 0;
-                    world[ninjaman.y-1][ninjaman.x+1] = 0;
+                    if (ninjaman.x+1 < world[ninjaman.y-1].length - 1 ) world[ninjaman.y-1][ninjaman.x+1] = 0;
                 }
 
                 if (ninjaman.x-1 > 0) world[ninjaman.y][ninjaman.x-1] = 0; //Avoid to destroy the left wall
-                world[ninjaman.y][ninjaman.x+1] = 0;
+                if (ninjaman.x+1 < world[ninjaman.y].length - 1 ) world[ninjaman.y][ninjaman.x+1] = 0;
 
                 //Avoid to destroy the bottom wall
                 if (ninjaman.y + 1 < world.length - 1 ) {
                     if (ninjaman.x-1 > 0) world[ninjaman.y+1][ninjaman.x-1] = 0; //Avoid to destroy the left wall
                     world[ninjaman.y+1][ninjaman.x] = 0;
-                    world[ninjaman.y+1][ninjaman.x+1] = 0;
+                    if (ninjaman.x+1 < world[ninjaman.y+1].length - 1 ) world[ninjaman.y+1][ninjaman.x+1] = 0;
                 }
 
             }
